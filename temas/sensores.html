@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Gestión de sensores | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="activo">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>📡 Gestión de sensores</h1>
+        <p>Cómo una app puede usar los sensores del teléfono para saber movimiento, posición o el ambiente.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">Definición de sensores</a></li><li><a href="#tipos">Tipos de sensores en dispositivos móviles</a></li><li><a href="#proceso">Proceso de gestión de sensores</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>Definición de sensores</h2>
+<p>Un <strong>sensor</strong> es un componente que detecta un cambio físico del entorno (movimiento, luz, temperatura, campo magnético, etc.) y lo convierte en datos que el sistema operativo y las aplicaciones pueden leer.</p>
+<p>En los dispositivos móviles los sensores pueden ser:</p>
+<ul>
+  <li><strong>De hardware:</strong> son componentes físicos dentro del teléfono, como el acelerómetro o el sensor de luz.</li>
+  <li><strong>De software (virtuales):</strong> no son físicos; calculan sus datos combinando la información de uno o más sensores de hardware. Por ejemplo, el sensor de gravedad o el de aceleración lineal.</li>
+</ul>
+</section><section class="bloque" id="tipos"><h2>Tipos de sensores en dispositivos móviles</h2>
+<p>Android agrupa los sensores en tres categorías principales:</p>
+<div class="tabla-scroll"><table><thead><tr><th>Categoría</th><th>Sensor</th><th>¿Qué mide?</th><th>Uso común</th></tr></thead><tbody><tr><td><strong>Movimiento</strong></td><td>Acelerómetro</td><td>Aceleración en los ejes X, Y, Z (m/s²), incluida la gravedad.</td><td>Girar la pantalla, contar pasos, detectar sacudidas.</td></tr><tr><td></td><td>Giroscopio</td><td>Velocidad de rotación en cada eje (rad/s).</td><td>Juegos, realidad aumentada, videos 360°.</td></tr><tr><td></td><td>Gravedad / Aceleración lineal</td><td>La gravedad por separado, o la aceleración sin la gravedad (sensores de software).</td><td>Detección precisa de movimiento.</td></tr><tr><td></td><td>Vector de rotación</td><td>Orientación del dispositivo en el espacio.</td><td>Brújulas, mapas, juegos.</td></tr><tr><td><strong>Ambientales</strong></td><td>Luz</td><td>Iluminación del ambiente (lux).</td><td>Brillo automático de la pantalla.</td></tr><tr><td></td><td>Barómetro (presión)</td><td>Presión del aire (hPa).</td><td>Calcular altitud, apps del clima.</td></tr><tr><td></td><td>Temperatura y humedad</td><td>Temperatura ambiente (°C) y humedad relativa (%).</td><td>Estaciones meteorológicas (pocos teléfonos los tienen).</td></tr><tr><td><strong>Posición</strong></td><td>Magnetómetro</td><td>Campo magnético terrestre (μT).</td><td>Brújula digital.</td></tr><tr><td></td><td>Proximidad</td><td>Distancia de un objeto a la pantalla (cm).</td><td>Apagar la pantalla durante una llamada.</td></tr></tbody></table></div>
+<p>Además existen otros sensores y componentes muy usados en las apps: <strong>GPS</strong> (ubicación), <strong>lector de huella</strong> y <strong>reconocimiento facial</strong> (biométricos), <strong>cámara</strong>, <strong>micrófono</strong>, <strong>NFC</strong> y el <strong>podómetro</strong> (contador de pasos).</p>
+</section><section class="bloque" id="proceso"><h2>Proceso de gestión de sensores</h2>
+<h3>1. Habilitación</h3>
+<ul>
+  <li>Se obtiene el administrador de sensores con <code>getSystemService(SENSOR_SERVICE)</code>.</li>
+  <li>Se verifica si el dispositivo tiene el sensor con <code>getDefaultSensor()</code>; si regresa <code>null</code>, no existe.</li>
+  <li>Si el sensor lo requiere, se declaran y piden <strong>permisos</strong> (por ejemplo <code>ACTIVITY_RECOGNITION</code> para el contador de pasos o <code>ACCESS_FINE_LOCATION</code> para el GPS).</li>
+</ul>
+
+<h3>2. Obtención de información</h3>
+<ul>
+  <li>Se implementa la interfaz <code>SensorEventListener</code>.</li>
+  <li>Se registra el listener con <code>registerListener()</code> indicando la frecuencia de lectura (<code>SENSOR_DELAY_NORMAL</code>, <code>SENSOR_DELAY_UI</code>, <code>SENSOR_DELAY_GAME</code> o <code>SENSOR_DELAY_FASTEST</code>).</li>
+  <li>Cada vez que cambia el valor se ejecuta <code>onSensorChanged()</code>, que recibe un <code>SensorEvent</code> con el arreglo <code>values</code>.</li>
+</ul>
+
+<h3>3. Procesamiento</h3>
+<ul>
+  <li>Se interpretan los valores (por ejemplo <code>values[0]</code>, <code>values[1]</code>, <code>values[2]</code> para los ejes X, Y, Z).</li>
+  <li>Se aplican <strong>filtros</strong> para quitar ruido (filtro de paso bajo o paso alto) y <strong>umbrales</strong> para detectar eventos, como una sacudida.</li>
+  <li>Se actualiza la interfaz o se realiza una acción.</li>
+  <li>Se <strong>desregistra</strong> el listener en <code>onPause()</code> con <code>unregisterListener()</code> para no gastar batería.</li>
+</ul>
+<details><summary>Ejemplo: leer el acelerómetro y detectar una sacudida</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>class MainActivity : AppCompatActivity(), SensorEventListener {
+
+    private lateinit var sensorManager: SensorManager
+    private var acelerometro: Sensor? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // 1. Habilitación
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        acelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        if (acelerometro == null) {
+            Toast.makeText(this, &quot;Este teléfono no tiene acelerómetro&quot;, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        acelerometro?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)   // ahorrar batería
+    }
+
+    // 2. Obtención
+    override fun onSensorChanged(event: SensorEvent) {
+        val x = event.values[0]
+        val y = event.values[1]
+        val z = event.values[2]
+
+        // 3. Procesamiento: fuerza total menos la gravedad
+        val fuerza = sqrt(x * x + y * y + z * z) - SensorManager.GRAVITY_EARTH
+        if (fuerza &gt; 12) {
+            Log.d(&quot;Sensor&quot;, &quot;¡Sacudida detectada!&quot;)
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }
+}</code></pre></div></div></details></section>
+      <div class="nav-temas"><a href="persistencia-datos.html">← Persistencia y acceso a datos</a><a href="multimedia.html">Recursos multimedia →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

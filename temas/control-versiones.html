@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Control de versiones | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="activo">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>🌿 Control de versiones</h1>
+        <p>Cómo llevar el historial de cambios de un proyecto y trabajar en equipo sin perder código.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">Definición de control de versiones</a></li><li><a href="#tipos">¿Cuáles son? (tipos de sistemas)</a></li><li><a href="#caracteristicas">Características, ventajas y desventajas</a></li><li><a href="#funcionamiento">Funcionamiento</a></li><li><a href="#rastreo">Uso en el rastreo y gestión de cambios</a></li><li><a href="#ejemplos">Ejemplos</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>Definición de control de versiones</h2>
+<p>El <strong>control de versiones</strong> es un sistema que registra los cambios que se hacen a uno o varios archivos a lo largo del tiempo, de forma que después se puede regresar a una versión anterior, comparar cambios, ver quién modificó algo y cuándo lo hizo.</p>
+<p>En el desarrollo de software se usa para guardar el código fuente de un proyecto. A cada "foto" del proyecto en un momento dado se le llama <strong>versión</strong> o <strong>commit</strong>, y al lugar donde se guarda todo el historial se le conoce como <strong>repositorio</strong>.</p>
+<div class="nota">💡 En pocas palabras: es como el "Ctrl + Z" de todo un proyecto, pero con historial completo y pensado para que varias personas trabajen al mismo tiempo.</div>
+</section><section class="bloque" id="tipos"><h2>¿Cuáles son? (tipos de sistemas)</h2>
+<p>Los sistemas de control de versiones (VCS, por sus siglas en inglés) se dividen en tres tipos:</p>
+
+<h3>1. Sistemas locales</h3>
+<p>Guardan el historial de cambios en la misma computadora donde se trabaja, normalmente en una pequeña base de datos con las diferencias entre versiones. Un ejemplo clásico es <strong>RCS</strong> (Revision Control System). Sirven para una sola persona, pero no permiten colaborar.</p>
+
+<h3>2. Sistemas centralizados (CVCS)</h3>
+<p>Hay un <strong>servidor central</strong> que guarda todas las versiones, y cada programador se conecta a él para descargar (checkout) y subir (commit) sus cambios. Ejemplos: <strong>CVS</strong>, <strong>Subversion (SVN)</strong> y <strong>Perforce</strong>.</p>
+
+<h3>3. Sistemas distribuidos (DVCS)</h3>
+<p>Cada desarrollador tiene una <strong>copia completa del repositorio</strong> con todo el historial en su computadora. Se puede trabajar sin internet y después sincronizar con otros repositorios (por ejemplo, uno remoto en GitHub). Ejemplos: <strong>Git</strong>, <strong>Mercurial</strong> y <strong>Bazaar</strong>. Hoy en día Git es el más usado.</p>
+</section><section class="bloque" id="caracteristicas"><h2>Características, ventajas y desventajas</h2><div class="tabla-scroll"><table><thead><tr><th>Tipo</th><th>Características</th><th>Ventajas</th><th>Desventajas</th></tr></thead><tbody><tr><td><strong>Local</strong> (RCS)</td><td>Historial guardado en la misma máquina; guarda parches o diferencias entre versiones.</td><td>Muy sencillo; no necesita red ni servidor; rápido.</td><td>No permite trabajo en equipo; si se daña el disco se pierde todo el historial.</td></tr><tr><td><strong>Centralizado</strong> (SVN, CVS, Perforce)</td><td>Un servidor único guarda el repositorio; los usuarios descargan solo la versión con la que trabajan.</td><td>Fácil de administrar; control de permisos por carpeta; todos saben en qué está trabajando cada quien.</td><td>Si el servidor se cae nadie puede guardar cambios; requiere conexión; es un punto único de falla.</td></tr><tr><td><strong>Distribuido</strong> (Git, Mercurial)</td><td>Cada copia es un repositorio completo con todo el historial; manejo fuerte de ramas.</td><td>Se trabaja sin internet; muy rápido; cada copia sirve de respaldo; ramas y fusiones fáciles.</td><td>Curva de aprendizaje más alta; los repositorios con archivos binarios grandes pueden pesar mucho.</td></tr></tbody></table></div></section><section class="bloque" id="funcionamiento"><h2>Funcionamiento</h2>
+<p>Tomando como ejemplo <strong>Git</strong>, un proyecto pasa por tres áreas principales:</p>
+<ol class="pasos">
+  <li><strong>Directorio de trabajo:</strong> la carpeta donde editamos los archivos normalmente.</li>
+  <li><strong>Área de preparación (staging):</strong> aquí se agregan con <code>git add</code> los cambios que queremos incluir en la siguiente versión.</li>
+  <li><strong>Repositorio:</strong> con <code>git commit</code> se guarda una "foto" de lo que está en staging, con un mensaje, autor y fecha. Cada commit tiene un identificador único (hash).</li>
+</ol>
+<p>Además, se pueden crear <strong>ramas</strong> (branches) para trabajar en algo nuevo sin afectar la rama principal (<code>main</code>). Cuando el trabajo está listo, la rama se <strong>fusiona</strong> (merge) con la principal. Para compartir el código se usa un <strong>repositorio remoto</strong> (GitHub, GitLab, Bitbucket) con los comandos <code>git push</code> (subir) y <code>git pull</code> (bajar).</p>
+</section><section class="bloque" id="rastreo"><h2>Uso en el rastreo y gestión de cambios</h2>
+<p>El control de versiones permite llevar un control detallado de todo lo que pasa en el proyecto:</p>
+<ul>
+  <li><strong>Historial:</strong> con <code>git log</code> se ve la lista de cambios, quién los hizo, cuándo y por qué (el mensaje del commit).</li>
+  <li><strong>Comparar versiones:</strong> <code>git diff</code> muestra exactamente qué líneas se agregaron o eliminaron.</li>
+  <li><strong>Saber quién cambió una línea:</strong> <code>git blame</code> indica el autor y el commit de cada línea de un archivo.</li>
+  <li><strong>Deshacer errores:</strong> <code>git revert</code> o <code>git restore</code> permiten regresar a un estado anterior.</li>
+  <li><strong>Trabajo en paralelo:</strong> cada integrante trabaja en su propia rama y luego se revisa el código mediante <em>Pull Requests</em> antes de unirlo.</li>
+  <li><strong>Versiones de entrega:</strong> con <code>git tag</code> se marcan versiones importantes, por ejemplo <code>v1.0</code> de una app publicada.</li>
+  <li><strong>Resolución de conflictos:</strong> si dos personas modifican la misma línea, Git avisa del conflicto para que se decida qué cambio conservar.</li>
+</ul>
+</section><section class="bloque" id="ejemplos"><h2>Ejemplos</h2><details><summary>Ejemplo 1: crear un repositorio y hacer el primer commit</summary><div><div class="codigo"><span class="lenguaje">bash</span><pre><code>git init                      # crea el repositorio en la carpeta actual
+git add index.html            # agrega el archivo al área de preparación
+git commit -m &quot;Primera versión de la página&quot;
+git log --oneline             # muestra el historial</code></pre></div></div></details><details><summary>Ejemplo 2: trabajar con ramas</summary><div><div class="codigo"><span class="lenguaje">bash</span><pre><code>git branch login              # crea la rama &quot;login&quot;
+git switch login              # se cambia a esa rama
+# ... se hacen cambios y commits ...
+git switch main               # regresa a la rama principal
+git merge login               # une los cambios de &quot;login&quot; en &quot;main&quot;</code></pre></div></div></details><details><summary>Ejemplo 3: subir el proyecto a GitHub</summary><div><div class="codigo"><span class="lenguaje">bash</span><pre><code>git remote add origin https://github.com/usuario/mi-app.git
+git push -u origin main       # sube la rama main al repositorio remoto
+git pull                      # descarga los cambios de los compañeros</code></pre></div></div></details><details><summary>Ejemplo 4: Subversion (centralizado)</summary><div><div class="codigo"><span class="lenguaje">bash</span><pre><code>svn checkout http://servidor/svn/proyecto   # descarga la copia de trabajo
+svn update                                  # trae los cambios del servidor
+svn commit -m &quot;Corrige error en el menú&quot;    # sube los cambios al servidor</code></pre></div></div></details></section>
+      <div class="nav-temas"><a href="../index.html">← Inicio</a><a href="persistencia-datos.html">Persistencia y acceso a datos →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

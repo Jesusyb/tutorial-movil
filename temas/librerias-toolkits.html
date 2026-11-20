@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Librerías y toolkits | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="activo">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>🧰 Librerías y toolkits</h1>
+        <p>Herramientas ya hechas que ahorran trabajo al programar apps móviles.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">¿Qué es una librería y qué es un toolkit?</a></li><li><a href="#librerias">Librerías de funciones especializadas</a></li><li><a href="#toolkits">Diferenciar toolkits para la programación móvil</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>¿Qué es una librería y qué es un toolkit?</h2>
+<p>Una <strong>librería</strong> (o biblioteca) es un conjunto de código ya escrito y probado que resuelve una tarea específica, y que nosotros <em>llamamos</em> desde nuestro programa cuando lo necesitamos. Por ejemplo, una librería para hacer peticiones HTTP o para cargar imágenes.</p>
+<p>Un <strong>toolkit</strong> (o kit de herramientas) es un conjunto más amplio de librerías, componentes, herramientas y utilidades que sirven para construir aplicaciones completas o una parte grande de ellas, como toda la interfaz gráfica. Normalmente incluye componentes visuales, documentación, compiladores o emuladores.</p>
+<div class="tabla-scroll"><table><thead><tr><th>Librería</th><th>Toolkit</th></tr></thead><tbody><tr><td>Resuelve un problema concreto.</td><td>Ofrece herramientas para construir toda (o gran parte de) una aplicación.</td></tr><tr><td>Es pequeña y se agrega como dependencia.</td><td>Es más grande; puede incluir SDK, componentes, emulador y herramientas.</td></tr><tr><td>El programador decide cuándo usarla.</td><td>Define una forma de trabajo y una estructura del proyecto.</td></tr><tr><td>Ej.: Retrofit, Glide, Gson.</td><td>Ej.: Android SDK, Flutter, Jetpack Compose.</td></tr></tbody></table></div></section><section class="bloque" id="librerias"><h2>Librerías de funciones especializadas</h2><div class="tabla-scroll"><table><thead><tr><th>Área</th><th>Librería</th><th>¿Para qué sirve?</th></tr></thead><tbody><tr><td>Red / internet</td><td>Retrofit, OkHttp, Ktor, Alamofire (iOS)</td><td>Consumir servicios web y APIs REST.</td></tr><tr><td>JSON</td><td>Gson, Moshi, kotlinx.serialization</td><td>Convertir JSON a objetos y viceversa.</td></tr><tr><td>Base de datos</td><td>Room, Realm, SQLDelight</td><td>Guardar datos localmente (ORM).</td></tr><tr><td>Imágenes</td><td>Glide, Coil, Picasso</td><td>Descargar, mostrar y guardar en caché imágenes.</td></tr><tr><td>Inyección de dependencias</td><td>Hilt, Dagger, Koin</td><td>Organizar cómo se crean y comparten los objetos.</td></tr><tr><td>Asincronía</td><td>Kotlin Coroutines, Flow, RxJava</td><td>Ejecutar tareas en segundo plano sin congelar la app.</td></tr><tr><td>Multimedia</td><td>ExoPlayer / Media3, CameraX</td><td>Reproducir video y usar la cámara.</td></tr><tr><td>Animación</td><td>Lottie</td><td>Animaciones vectoriales ligeras.</td></tr><tr><td>Mapas y ubicación</td><td>Google Maps SDK, Mapbox</td><td>Mostrar mapas y obtener la ubicación.</td></tr><tr><td>Inteligencia artificial</td><td>ML Kit, TensorFlow Lite</td><td>Escanear códigos, reconocer texto o rostros.</td></tr><tr><td>Pruebas</td><td>JUnit, Espresso, Mockito</td><td>Probar el código y la interfaz.</td></tr><tr><td>Backend</td><td>Firebase SDK</td><td>Autenticación, base de datos y notificaciones en la nube.</td></tr></tbody></table></div></section><section class="bloque" id="toolkits"><h2>Diferenciar toolkits para la programación móvil</h2>
+<p>Los toolkits se pueden clasificar según si generan apps <strong>nativas</strong> (una sola plataforma) o <strong>multiplataforma</strong> (un mismo código para Android y iOS):</p>
+<div class="tabla-scroll"><table><thead><tr><th>Toolkit</th><th>Tipo</th><th>Lenguaje</th><th>Características</th></tr></thead><tbody><tr><td>Android SDK + Jetpack</td><td>Nativo Android</td><td>Kotlin / Java</td><td>Herramientas oficiales de Google; acceso total al hardware; se usa con Android Studio.</td></tr><tr><td>Jetpack Compose</td><td>Nativo Android (UI)</td><td>Kotlin</td><td>Interfaces declarativas con funciones <code>@Composable</code>; reemplaza poco a poco a los layouts XML.</td></tr><tr><td>iOS SDK (UIKit / SwiftUI)</td><td>Nativo iOS</td><td>Swift</td><td>Herramientas oficiales de Apple; se usa con Xcode en una Mac.</td></tr><tr><td>Flutter</td><td>Multiplataforma</td><td>Dart</td><td>De Google; dibuja su propia interfaz con widgets; un solo código para Android, iOS, web y escritorio.</td></tr><tr><td>React Native</td><td>Multiplataforma</td><td>JavaScript / TypeScript</td><td>De Meta; usa componentes nativos reales; ideal si ya se sabe React.</td></tr><tr><td>.NET MAUI</td><td>Multiplataforma</td><td>C#</td><td>De Microsoft; sucesor de Xamarin.Forms; apps para Android, iOS, Windows y macOS.</td></tr><tr><td>Kotlin Multiplatform</td><td>Multiplataforma</td><td>Kotlin</td><td>Comparte la lógica entre plataformas y permite interfaz nativa o con Compose Multiplatform.</td></tr><tr><td>Ionic + Capacitor</td><td>Híbrido</td><td>HTML, CSS, JS</td><td>Apps hechas con tecnologías web dentro de un contenedor nativo.</td></tr></tbody></table></div>
+<div class="nota">📌 Los toolkits nativos dan el mejor rendimiento y acceso a todas las funciones del sistema, mientras que los multiplataforma ahorran tiempo porque se escribe un solo código para varias plataformas.</div>
+</section>
+      <div class="nav-temas"><a href="servicios-notificaciones.html">← Servicios y notificaciones</a><a href="depuracion-seguridad.html">Depuración y seguridad →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

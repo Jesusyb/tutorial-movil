@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Servicios y notificaciones | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="activo">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>🔔 Servicios y notificaciones</h1>
+        <p>Trabajo que la app hace sin que el usuario la esté viendo y cómo avisarle de lo que pasa.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">Definición</a></li><li><a href="#segundo-plano">¿Qué son las tareas en segundo plano?</a></li><li><a href="#notificaciones">Tratamiento de notificaciones</a></li><li><a href="#implementacion">Proceso de implementación</a></li><li><a href="#nube">Servicios de cómputo en la nube para apps móviles</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>Definición</h2>
+<p>Un <strong>servicio</strong> es un componente de una aplicación que realiza operaciones de larga duración <strong>sin interfaz gráfica</strong>, como reproducir música, descargar un archivo o sincronizar datos. En Android hay tres tipos:</p>
+<ul>
+  <li><strong>En primer plano (foreground):</strong> el usuario sabe que está funcionando porque muestra una notificación permanente (por ejemplo, un reproductor de música o el GPS de una app de mapas).</li>
+  <li><strong>En segundo plano (background):</strong> hace trabajo que el usuario no nota directamente. Desde Android 8 tiene muchas restricciones.</li>
+  <li><strong>Vinculado (bound):</strong> otros componentes se conectan a él para pedirle datos o acciones mientras dure la conexión.</li>
+</ul>
+<p>Una <strong>notificación</strong> es un mensaje que la app muestra fuera de su interfaz, en la barra de estado o en la pantalla de bloqueo, para avisar al usuario de algo importante.</p>
+</section><section class="bloque" id="segundo-plano"><h2>¿Qué son las tareas en segundo plano?</h2>
+<p>Son procesos que se ejecutan <strong>sin bloquear la interfaz</strong> o incluso cuando la app no está abierta. El hilo principal (UI) solo debe dibujar la pantalla; si se hace ahí algo pesado (internet, base de datos) la app se congela y aparece el error <em>ANR (Application Not Responding)</em>.</p>
+<p>Se dividen en:</p>
+<ul>
+  <li><strong>Trabajo inmediato asíncrono:</strong> mientras la app está abierta, usando <strong>corrutinas</strong> de Kotlin o hilos (<code>Thread</code>, <code>Executor</code>).</li>
+  <li><strong>Trabajo persistente:</strong> tareas que deben terminar aunque se cierre la app o se reinicie el teléfono, como subir fotos o sincronizar. Para esto se recomienda <strong>WorkManager</strong>.</li>
+  <li><strong>Servicios en primer plano:</strong> tareas largas que el usuario está viendo, como una descarga o la música.</li>
+</ul>
+<div class="nota">🔋 Los sistemas Android e iOS limitan las tareas en segundo plano (modo Doze, App Standby, Background App Refresh) para ahorrar batería, así que hay que usar las herramientas oficiales.</div>
+</section><section class="bloque" id="notificaciones"><h2>Tratamiento de notificaciones</h2>
+<ul>
+  <li><strong>Canales de notificación:</strong> desde Android 8.0 cada notificación debe pertenecer a un canal (por ejemplo "Mensajes" o "Promociones"), y el usuario puede activar o desactivar cada uno.</li>
+  <li><strong>Permiso:</strong> desde Android 13 hay que pedir el permiso <code>POST_NOTIFICATIONS</code>. En iOS siempre se pide autorización al usuario.</li>
+  <li><strong>Contenido:</strong> ícono, título, texto, imagen grande, estilo expandible y prioridad.</li>
+  <li><strong>Acciones:</strong> botones como "Responder" o "Marcar como leído", y un <code>PendingIntent</code> que abre la app al tocar la notificación.</li>
+  <li><strong>Notificaciones locales:</strong> las genera la propia app (un recordatorio o alarma).</li>
+  <li><strong>Notificaciones push (remotas):</strong> las envía un servidor a través de <strong>Firebase Cloud Messaging (FCM)</strong> en Android o <strong>APNs</strong> en iOS, aunque la app esté cerrada.</li>
+</ul>
+</section><section class="bloque" id="implementacion"><h2>Proceso de implementación</h2>
+<h3>Proveedores de contenido (Content Providers)</h3>
+<p>Un <strong>Content Provider</strong> permite que una app comparta sus datos con otras apps de forma controlada, por ejemplo los Contactos o la Galería. Pasos:</p>
+<ol class="pasos">
+  <li>Crear una clase que herede de <code>ContentProvider</code>.</li>
+  <li>Implementar los métodos <code>onCreate()</code>, <code>query()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code> y <code>getType()</code>.</li>
+  <li>Definir una URI de contenido, por ejemplo <code>content://com.ejemplo.escuela/alumnos</code>.</li>
+  <li>Registrar el proveedor en el <code>AndroidManifest.xml</code> con su <code>android:authorities</code> y permisos.</li>
+  <li>Las otras apps acceden a los datos con un <code>ContentResolver</code>.</li>
+</ol>
+<div class="codigo"><span class="lenguaje">xml</span><pre><code>&lt;provider
+    android:name=&quot;.AlumnosProvider&quot;
+    android:authorities=&quot;com.ejemplo.escuela&quot;
+    android:exported=&quot;true&quot;
+    android:readPermission=&quot;com.ejemplo.escuela.LEER&quot; /&gt;</code></pre></div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>// Leer los contactos del teléfono con un ContentResolver
+val cursor = contentResolver.query(
+    ContactsContract.Contacts.CONTENT_URI, null, null, null, null
+)</code></pre></div>
+<h3>Tareas en segundo plano (WorkManager)</h3>
+<ol class="pasos">
+  <li>Agregar la dependencia de WorkManager al proyecto.</li>
+  <li>Crear una clase que herede de <code>Worker</code> (o <code>CoroutineWorker</code>) y poner el trabajo en <code>doWork()</code>.</li>
+  <li>Definir las condiciones (<code>Constraints</code>): con internet, cargando, batería no baja, etc.</li>
+  <li>Crear la solicitud: <code>OneTimeWorkRequest</code> (una vez) o <code>PeriodicWorkRequest</code> (cada cierto tiempo, mínimo 15 minutos).</li>
+  <li>Encolarla con <code>WorkManager.getInstance(context).enqueue()</code>.</li>
+</ol>
+<div class="codigo"><span class="lenguaje">kotlin</span><pre><code>class SincronizarWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+    override fun doWork(): Result {
+        // Aquí va el trabajo pesado, por ejemplo subir datos al servidor
+        return Result.success()
+    }
+}
+
+val condiciones = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.CONNECTED)
+    .build()
+
+val solicitud = PeriodicWorkRequestBuilder&lt;SincronizarWorker&gt;(1, TimeUnit.HOURS)
+    .setConstraints(condiciones)
+    .build()
+
+WorkManager.getInstance(this).enqueue(solicitud)</code></pre></div>
+<h3>Notificaciones</h3>
+<ol class="pasos">
+  <li>Declarar el permiso <code>POST_NOTIFICATIONS</code> en el manifiesto y pedirlo en tiempo de ejecución (Android 13+).</li>
+  <li>Crear un canal con <code>NotificationChannel</code> (Android 8+).</li>
+  <li>Construir la notificación con <code>NotificationCompat.Builder</code>.</li>
+  <li>Agregar un <code>PendingIntent</code> para abrir la app al tocarla.</li>
+  <li>Mostrarla con <code>NotificationManagerCompat.notify()</code>.</li>
+</ol>
+<div class="codigo"><span class="lenguaje">kotlin</span><pre><code>// 1. Crear el canal
+val canal = NotificationChannel(&quot;tareas&quot;, &quot;Tareas&quot;, NotificationManager.IMPORTANCE_DEFAULT)
+getSystemService(NotificationManager::class.java).createNotificationChannel(canal)
+
+// 2. Intent para abrir la app
+val intent = Intent(this, MainActivity::class.java)
+val pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+// 3. Construir y mostrar
+val notificacion = NotificationCompat.Builder(this, &quot;tareas&quot;)
+    .setSmallIcon(R.drawable.ic_notificacion)
+    .setContentTitle(&quot;Recordatorio&quot;)
+    .setContentText(&quot;Tienes que entregar la práctica hoy&quot;)
+    .setContentIntent(pending)
+    .setAutoCancel(true)
+    .build()
+
+NotificationManagerCompat.from(this).notify(1, notificacion)</code></pre></div></section><section class="bloque" id="nube"><h2>Servicios de cómputo en la nube para apps móviles</h2><div class="tabla-scroll"><table><thead><tr><th>Plataforma</th><th>Servicios útiles para apps móviles</th></tr></thead><tbody><tr><td><strong>Firebase</strong> (Google)</td><td>Authentication (inicio de sesión), Cloud Firestore y Realtime Database (bases de datos en tiempo real), Cloud Storage (archivos), Cloud Messaging (notificaciones push), Crashlytics (reporte de errores), Analytics, Hosting y Cloud Functions.</td></tr><tr><td><strong>AWS</strong> (Amazon)</td><td>AWS Amplify (backend para apps), Cognito (usuarios), DynamoDB (base de datos), S3 (archivos), Lambda (funciones sin servidor), SNS (notificaciones).</td></tr><tr><td><strong>Microsoft Azure</strong></td><td>App Service (APIs), Azure SQL y Cosmos DB (bases de datos), Notification Hubs (push), Blob Storage (archivos), Azure Functions.</td></tr><tr><td><strong>Google Cloud</strong></td><td>Cloud Run y App Engine (APIs), Cloud SQL, servicios de inteligencia artificial y mapas.</td></tr><tr><td><strong>Supabase</strong></td><td>Alternativa de código abierto a Firebase con base de datos PostgreSQL, autenticación, almacenamiento y funciones.</td></tr></tbody></table></div></section>
+      <div class="nav-temas"><a href="multimedia.html">← Recursos multimedia</a><a href="librerias-toolkits.html">Librerías y toolkits →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Persistencia y acceso a datos | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="activo">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>💾 Persistencia y acceso a datos</h1>
+        <p>Formas de guardar información en una app móvil para que no se pierda al cerrarla.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">Definición</a></li><li><a href="#caracteristicas">Características</a></li><li><a href="#formas">Formas de persistencia en dispositivos móviles</a></li><li><a href="#tipos-datos">Tipos de datos almacenables según la forma de persistencia</a></li><li><a href="#mecanismos">Mecanismos de control de acceso a medios persistentes</a></li><li><a href="#autenticacion">Proceso de autenticación y consumo de servicios web</a></li><li><a href="#ejemplos">Ejemplos</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>Definición</h2>
+<p>La <strong>persistencia de datos</strong> es la capacidad de una aplicación de guardar información de manera que siga existiendo aunque la app se cierre, el teléfono se reinicie o se quede sin batería. Lo contrario son los datos en memoria RAM (variables), que se pierden cuando termina el programa.</p>
+<p>El <strong>acceso a datos</strong> son las técnicas y herramientas que usa la aplicación para leer, guardar, modificar y eliminar esa información (operaciones CRUD: <em>Create, Read, Update, Delete</em>).</p>
+</section><section class="bloque" id="caracteristicas"><h2>Características</h2>
+<ul>
+  <li><strong>Durabilidad:</strong> la información permanece en el almacenamiento aunque se cierre la app.</li>
+  <li><strong>Integridad:</strong> los datos se guardan completos y sin errores.</li>
+  <li><strong>Consistencia:</strong> los datos cumplen reglas definidas (tipos, llaves, relaciones).</li>
+  <li><strong>Disponibilidad:</strong> se puede consultar la información cuando se necesite, incluso sin internet si se guarda localmente.</li>
+  <li><strong>Seguridad:</strong> la información sensible debe protegerse (cifrado, permisos).</li>
+  <li><strong>Sincronización:</strong> en apps conectadas, los datos locales y los del servidor deben coincidir.</li>
+</ul>
+</section><section class="bloque" id="formas"><h2>Formas de persistencia en dispositivos móviles</h2>
+<h3>📄 Archivos</h3>
+<p>La app guarda información directamente en archivos (texto, JSON, imágenes, etc.).</p>
+<ul>
+  <li><strong>Almacenamiento interno:</strong> privado para la app; se borra al desinstalarla.</li>
+  <li><strong>Almacenamiento externo / compartido:</strong> para archivos que el usuario puede ver, como fotos o documentos descargados.</li>
+  <li><strong>Preferencias (clave-valor):</strong> archivos pequeños para configuraciones, por ejemplo <code>SharedPreferences</code> o <code>DataStore</code> en Android y <code>UserDefaults</code> en iOS.</li>
+</ul>
+
+<h3>🗄️ Bases de datos locales</h3>
+<p>Se guarda la información de forma estructurada dentro del propio dispositivo. La más usada es <strong>SQLite</strong>, una base de datos relacional ligera que no necesita servidor. También existen <strong>Room</strong> (Android), <strong>Core Data</strong> (iOS) y <strong>Realm</strong>. Sirven para muchos registros que se consultan con filtros, por ejemplo una lista de tareas o un inventario.</p>
+
+<h3>☁️ Bases de datos remotas mediante servicios web</h3>
+<p>Los datos están en un servidor en internet y la app se comunica con él a través de un <strong>servicio web</strong> (API REST que normalmente responde en JSON). La base de datos puede ser MySQL, PostgreSQL, MongoDB, etc. También hay servicios listos como <strong>Firebase Firestore</strong>. Se usa cuando la información debe compartirse entre usuarios o dispositivos, como en una red social o la app de un banco.</p>
+</section><section class="bloque" id="tipos-datos"><h2>Tipos de datos almacenables según la forma de persistencia</h2><div class="tabla-scroll"><table><thead><tr><th>Forma</th><th>Datos que se suelen guardar</th><th>Ejemplos</th></tr></thead><tbody><tr><td>Preferencias (clave-valor)</td><td>Tipos primitivos: <code>String</code>, <code>Int</code>, <code>Boolean</code>, <code>Float</code>, <code>Long</code>, conjuntos de texto.</td><td>Modo oscuro activado, idioma, último usuario.</td></tr><tr><td>Archivos</td><td>Texto plano, JSON, XML, CSV y binarios (imágenes, audio, video, PDF).</td><td>Foto de perfil, caché de una lista, documento descargado.</td></tr><tr><td>Base de datos local (SQLite)</td><td><code>INTEGER</code>, <code>REAL</code>, <code>TEXT</code>, <code>BLOB</code> y <code>NULL</code>; datos estructurados en tablas con relaciones.</td><td>Contactos, tareas, productos, historial de pedidos.</td></tr><tr><td>Base de datos remota (servicio web)</td><td>Cualquier dato serializado en JSON/XML: objetos, listas, fechas, rutas a archivos en la nube.</td><td>Publicaciones, mensajes de chat, calificaciones de alumnos.</td></tr></tbody></table></div></section><section class="bloque" id="mecanismos"><h2>Mecanismos de control de acceso a medios persistentes</h2>
+<h3>Biblioteca de clases</h3>
+<p>Son las clases que ya trae el lenguaje o la plataforma para trabajar con archivos y flujos de datos. En Java/Kotlin para Android se usan <code>File</code>, <code>FileInputStream</code>, <code>FileOutputStream</code>, <code>BufferedReader</code>, y métodos del <code>Context</code> como <code>openFileOutput()</code> y <code>openFileInput()</code>.</p>
+<div class="codigo"><span class="lenguaje">kotlin</span><pre><code>// Guardar y leer un archivo en el almacenamiento interno
+openFileOutput(&quot;notas.txt&quot;, Context.MODE_PRIVATE).use {
+    it.write(&quot;Hola mundo&quot;.toByteArray())
+}
+
+val texto = openFileInput(&quot;notas.txt&quot;).bufferedReader().use { it.readText() }</code></pre></div>
+<h3>Clases de SQLite</h3>
+<p>Android incluye clases para manejar SQLite directamente:</p>
+<ul>
+  <li><code>SQLiteOpenHelper</code>: crea la base de datos y controla sus versiones (<code>onCreate</code>, <code>onUpgrade</code>).</li>
+  <li><code>SQLiteDatabase</code>: ejecuta las operaciones (<code>insert</code>, <code>query</code>, <code>update</code>, <code>delete</code>, <code>execSQL</code>).</li>
+  <li><code>ContentValues</code>: guarda los pares columna-valor para insertar o actualizar.</li>
+  <li><code>Cursor</code>: recorre los resultados de una consulta.</li>
+</ul>
+<div class="codigo"><span class="lenguaje">java</span><pre><code>public class AdminBD extends SQLiteOpenHelper {
+    public AdminBD(Context context) {
+        super(context, &quot;escuela.db&quot;, null, 1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(&quot;CREATE TABLE alumnos(id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, grupo TEXT)&quot;);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int anterior, int nueva) {
+        db.execSQL(&quot;DROP TABLE IF EXISTS alumnos&quot;);
+        onCreate(db);
+    }
+}
+
+// Insertar un registro
+SQLiteDatabase db = new AdminBD(this).getWritableDatabase();
+ContentValues valores = new ContentValues();
+valores.put(&quot;nombre&quot;, &quot;Ana&quot;);
+valores.put(&quot;grupo&quot;, &quot;142&quot;);
+db.insert(&quot;alumnos&quot;, null, valores);</code></pre></div>
+<h3>Mapeo relacional de objetos (ORM)</h3>
+<p>Un <strong>ORM</strong> convierte automáticamente las tablas de la base de datos en objetos (clases) del lenguaje, así no hay que escribir SQL a mano para todo. En Android el más usado es <strong>Room</strong>, que forma parte de Android Jetpack. Otros ejemplos son Realm, Core Data (iOS), Hibernate (Java) y Entity Framework (.NET).</p>
+<ul>
+  <li><code>@Entity</code>: la clase que representa una tabla.</li>
+  <li><code>@Dao</code>: la interfaz con los métodos de consulta.</li>
+  <li><code>@Database</code>: la clase principal que une todo.</li>
+</ul>
+<div class="codigo"><span class="lenguaje">kotlin</span><pre><code>@Entity(tableName = &quot;alumnos&quot;)
+data class Alumno(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val nombre: String,
+    val grupo: String
+)
+
+@Dao
+interface AlumnoDao {
+    @Insert
+    suspend fun insertar(alumno: Alumno)
+
+    @Query(&quot;SELECT * FROM alumnos WHERE grupo = :grupo&quot;)
+    suspend fun porGrupo(grupo: String): List&lt;Alumno&gt;
+}
+
+@Database(entities = [Alumno::class], version = 1)
+abstract class EscuelaDB : RoomDatabase() {
+    abstract fun alumnoDao(): AlumnoDao
+}</code></pre></div></section><section class="bloque" id="autenticacion"><h2>Proceso de autenticación y consumo de servicios web</h2>
+<p>Cuando una app necesita datos de un servidor privado, primero debe comprobar quién es el usuario. Un proceso típico con tokens es:</p>
+<ol class="pasos">
+  <li>El usuario escribe su correo y contraseña en la app.</li>
+  <li>La app envía esos datos por <strong>HTTPS</strong> al servicio web (por ejemplo <code>POST /api/login</code>).</li>
+  <li>El servidor valida las credenciales y, si son correctas, responde con un <strong>token</strong> (por ejemplo un JWT u OAuth 2.0).</li>
+  <li>La app guarda el token de forma segura en el dispositivo.</li>
+  <li>En cada petición siguiente, la app manda el token en el encabezado <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+  <li>El servidor revisa el token y responde con los datos en formato <strong>JSON</strong>.</li>
+  <li>La app convierte el JSON a objetos (con librerías como Gson o Moshi) y los muestra en pantalla.</li>
+  <li>Cuando el token expira, la app pide uno nuevo o vuelve a mostrar el inicio de sesión.</li>
+</ol>
+<p>También se puede usar un servicio de autenticación ya hecho, como <strong>Firebase Authentication</strong>, que permite iniciar sesión con correo, Google, Facebook, número de teléfono, etc.</p>
+</section><section class="bloque" id="ejemplos"><h2>Ejemplos</h2><details><summary>Ejemplo 1: guardar una preferencia (SharedPreferences)</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>val prefs = getSharedPreferences(&quot;config&quot;, Context.MODE_PRIVATE)
+
+// Guardar
+prefs.edit().putBoolean(&quot;modo_oscuro&quot;, true).apply()
+
+// Leer
+val oscuro = prefs.getBoolean(&quot;modo_oscuro&quot;, false)</code></pre></div></div></details><details><summary>Ejemplo 2: consultar SQLite con Cursor</summary><div><div class="codigo"><span class="lenguaje">java</span><pre><code>SQLiteDatabase db = new AdminBD(this).getReadableDatabase();
+Cursor c = db.rawQuery(&quot;SELECT nombre FROM alumnos WHERE grupo = ?&quot;, new String[]{&quot;142&quot;});
+
+while (c.moveToNext()) {
+    Log.d(&quot;BD&quot;, &quot;Alumno: &quot; + c.getString(0));
+}
+c.close();</code></pre></div></div></details><details><summary>Ejemplo 3: consumir un servicio web con Retrofit</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>interface ApiEscuela {
+    @POST(&quot;login&quot;)
+    suspend fun login(@Body datos: LoginRequest): LoginResponse   // regresa el token
+
+    @GET(&quot;alumnos&quot;)
+    suspend fun alumnos(@Header(&quot;Authorization&quot;) token: String): List&lt;Alumno&gt;
+}
+
+val api = Retrofit.Builder()
+    .baseUrl(&quot;https://miservidor.com/api/&quot;)
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+    .create(ApiEscuela::class.java)
+
+// Dentro de una corrutina
+val respuesta = api.login(LoginRequest(&quot;ana@correo.com&quot;, &quot;1234&quot;))
+val lista = api.alumnos(&quot;Bearer ${respuesta.token}&quot;)</code></pre></div></div></details></section>
+      <div class="nav-temas"><a href="control-versiones.html">← Control de versiones</a><a href="sensores.html">Gestión de sensores →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

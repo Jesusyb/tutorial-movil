@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Depuración y seguridad | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="activo">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>🛡️ Depuración y seguridad</h1>
+        <p>Cómo encontrar errores en una app y cómo protegerla a ella y a sus usuarios.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">¿Qué es la depuración y la seguridad?</a></li><li><a href="#herramientas">Herramientas de depuración en el entorno de desarrollo</a></li><li><a href="#referencias">Referencias</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>¿Qué es la depuración y la seguridad?</h2>
+<p>La <strong>depuración</strong> (en inglés <em>debugging</em>) es el proceso de encontrar, analizar y corregir los errores (bugs) de un programa. Incluye ejecutar la app paso a paso, revisar los valores de las variables, leer los mensajes de error y medir el rendimiento.</p>
+<p>La <strong>seguridad</strong> en aplicaciones móviles es el conjunto de prácticas y mecanismos para proteger la app, los datos del usuario y la comunicación con los servidores contra accesos no autorizados, robo de información o modificaciones maliciosas.</p>
+<h3>Buenas prácticas de seguridad</h3>
+<ul>
+  <li>Usar siempre <strong>HTTPS</strong> para comunicarse con los servidores.</li>
+  <li>No guardar contraseñas ni claves de API escritas directamente en el código.</li>
+  <li>Guardar datos sensibles de forma cifrada, usando el <strong>Android Keystore</strong> o el <strong>Keychain</strong> de iOS.</li>
+  <li>Pedir solo los <strong>permisos</strong> necesarios.</li>
+  <li>Validar los datos que escribe el usuario para evitar inyecciones SQL.</li>
+  <li>Ofuscar el código al publicar (R8 / ProGuard en Android).</li>
+  <li>Mantener las librerías actualizadas.</li>
+  <li>Revisar la guía <strong>OWASP Mobile Top 10</strong>, que lista los riesgos más comunes en apps móviles.</li>
+</ul>
+</section><section class="bloque" id="herramientas"><h2>Herramientas de depuración en el entorno de desarrollo</h2>
+<h3>Android Studio</h3>
+<div class="tabla-scroll"><table><thead><tr><th>Herramienta</th><th>¿Para qué sirve?</th></tr></thead><tbody><tr><td>Depurador (Debugger)</td><td>Poner <strong>breakpoints</strong>, ejecutar línea por línea (step over / step into), ver y cambiar variables mientras corre la app.</td></tr><tr><td>Logcat</td><td>Ver los mensajes del sistema y los que escribimos con <code>Log.d()</code>, <code>Log.e()</code>, etc.; filtrar por app o nivel.</td></tr><tr><td>Layout Inspector</td><td>Revisar la jerarquía de vistas y componentes de Compose de la pantalla en tiempo real.</td></tr><tr><td>Android Profiler</td><td>Medir el uso de CPU, memoria, red y energía para encontrar fugas de memoria o partes lentas.</td></tr><tr><td>App Inspection</td><td>Database Inspector (ver y editar la base de datos SQLite/Room), Network Inspector (ver las peticiones) y Background Task Inspector (ver los trabajos de WorkManager).</td></tr><tr><td>Emulador (AVD)</td><td>Probar la app en diferentes dispositivos y versiones de Android, y simular ubicación, batería o sensores.</td></tr><tr><td>ADB (Android Debug Bridge)</td><td>Herramienta de línea de comandos para instalar apps, ver logs y controlar el dispositivo.</td></tr><tr><td>Lint</td><td>Analiza el código y avisa de errores, problemas de rendimiento, accesibilidad o seguridad.</td></tr></tbody></table></div>
+<h3>Otros entornos</h3>
+<ul>
+  <li><strong>Xcode (iOS):</strong> depurador LLDB, Instruments (rendimiento y memoria), View Debugger y la consola.</li>
+  <li><strong>Flutter:</strong> Flutter DevTools (inspector de widgets, rendimiento, red) y <em>hot reload</em>.</li>
+  <li><strong>React Native:</strong> React Native DevTools y las herramientas de desarrollador de Chrome.</li>
+  <li><strong>Firebase Crashlytics:</strong> reporta los errores que les ocurren a los usuarios con la app ya publicada.</li>
+</ul>
+<details><summary>Ejemplo: usar Logcat y un breakpoint</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>private const val TAG = &quot;MainActivity&quot;
+
+fun calcularPromedio(calificaciones: List&lt;Double&gt;): Double {
+    Log.d(TAG, &quot;Calificaciones recibidas: $calificaciones&quot;)
+
+    if (calificaciones.isEmpty()) {
+        Log.e(TAG, &quot;La lista está vacía&quot;)   // aparece en rojo en Logcat
+        return 0.0
+    }
+
+    val promedio = calificaciones.sum() / calificaciones.size   // &lt;- aquí se puede poner un breakpoint
+    Log.i(TAG, &quot;Promedio: $promedio&quot;)
+    return promedio
+}</code></pre></div></div></details></section><section class="bloque" id="referencias"><h2>Referencias</h2>
+<ul>
+  <li>Chacon, S. y Straub, B. <em>Pro Git</em> (2.ª ed.). <a href="https://git-scm.com/book/es/v2" target="_blank">https://git-scm.com/book/es/v2</a></li>
+  <li>Android Developers. <em>Descripción general del almacenamiento de datos y archivos.</em> <a href="https://developer.android.com/training/data-storage" target="_blank">https://developer.android.com/training/data-storage</a></li>
+  <li>Android Developers. <em>Cómo guardar contenido en una base de datos local con Room.</em> <a href="https://developer.android.com/training/data-storage/room" target="_blank">https://developer.android.com/training/data-storage/room</a></li>
+  <li>Android Developers. <em>Descripción general de los sensores.</em> <a href="https://developer.android.com/guide/topics/sensors/sensors_overview" target="_blank">https://developer.android.com/guide/topics/sensors/sensors_overview</a></li>
+  <li>Android Developers. <em>Descripción general de MediaPlayer.</em> <a href="https://developer.android.com/media/platform/mediaplayer" target="_blank">https://developer.android.com/media/platform/mediaplayer</a></li>
+  <li>Android Developers. <em>Descripción general de los servicios.</em> <a href="https://developer.android.com/develop/background-work/services" target="_blank">https://developer.android.com/develop/background-work/services</a></li>
+  <li>Android Developers. <em>Notificaciones.</em> <a href="https://developer.android.com/develop/ui/views/notifications" target="_blank">https://developer.android.com/develop/ui/views/notifications</a></li>
+  <li>Android Developers. <em>Proveedores de contenido.</em> <a href="https://developer.android.com/guide/topics/providers/content-providers" target="_blank">https://developer.android.com/guide/topics/providers/content-providers</a></li>
+  <li>Android Developers. <em>Depura tu app.</em> <a href="https://developer.android.com/studio/debug" target="_blank">https://developer.android.com/studio/debug</a></li>
+  <li>Firebase. <em>Documentación de Firebase.</em> <a href="https://firebase.google.com/docs" target="_blank">https://firebase.google.com/docs</a></li>
+  <li>OWASP. <em>OWASP Mobile Top 10.</em> <a href="https://owasp.org/www-project-mobile-top-10/" target="_blank">https://owasp.org/www-project-mobile-top-10/</a></li>
+  <li>SQLite. <em>Datatypes in SQLite.</em> <a href="https://www.sqlite.org/datatype3.html" target="_blank">https://www.sqlite.org/datatype3.html</a></li>
+</ul>
+</section>
+      <div class="nav-temas"><a href="librerias-toolkits.html">← Librerías y toolkits</a><a href="../index.html">Volver al inicio →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

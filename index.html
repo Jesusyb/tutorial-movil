@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Inicio | Tutorial Móvil</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="index.html" class="activo">🏠 Inicio</a></li>
+<li><a href="temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="temas/multimedia.html" class="">🎬 Recursos multimedia</a></li>
+<li><a href="temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="hero">
+        <h1>Tutorial de Programación de Aplicaciones Móviles</h1>
+        <p>Una guía con los temas principales del desarrollo móvil: control de versiones, manejo de datos,
+        sensores, multimedia, servicios, librerías y depuración. Cada tema incluye definiciones, explicaciones y ejemplos de código.</p>
+        <div class="datos-alumno">
+          <span>👤 Jesús Yáñez Bautista</span>
+          <span>🏫 Grupo 142</span>
+          <span>📅 Actividad 12/11/2026</span>
+        </div>
+      </div>
+
+      <input type="text" id="buscador" class="buscador" placeholder="🔍 Buscar un tema...">
+
+      <div class="tarjetas"><a class="tarjeta" href="temas/control-versiones.html"><div class="icono">🌿</div><h3>Control de versiones</h3><p>Qué es, tipos (local, centralizado, distribuido), funcionamiento de Git y ejemplos.</p></a><a class="tarjeta" href="temas/persistencia-datos.html"><div class="icono">💾</div><h3>Persistencia y acceso a datos</h3><p>Archivos, SQLite, ORM con Room, servicios web y autenticación con tokens.</p></a><a class="tarjeta" href="temas/sensores.html"><div class="icono">📡</div><h3>Gestión de sensores</h3><p>Tipos de sensores del teléfono y cómo habilitarlos, leerlos y procesar sus datos.</p></a><a class="tarjeta" href="temas/multimedia.html"><div class="icono">🎬</div><h3>Recursos multimedia</h3><p>Imágenes, audio, video y animaciones; dónde se guardan y qué componentes se usan.</p></a><a class="tarjeta" href="temas/servicios-notificaciones.html"><div class="icono">🔔</div><h3>Servicios y notificaciones</h3><p>Servicios, tareas en segundo plano, notificaciones, Content Providers y la nube.</p></a><a class="tarjeta" href="temas/librerias-toolkits.html"><div class="icono">🧰</div><h3>Librerías y toolkits</h3><p>Diferencia entre librería y toolkit, librerías especializadas y toolkits móviles.</p></a><a class="tarjeta" href="temas/depuracion-seguridad.html"><div class="icono">🛡️</div><h3>Depuración y seguridad</h3><p>Herramientas de depuración, buenas prácticas de seguridad y referencias.</p></a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="js/main.js"></script>
+</body>
+</html>

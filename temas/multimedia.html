@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tutorial de programación de aplicaciones móviles">
+  <title>Recursos multimedia | Tutorial Móvil</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <a class="logo" href="../index.html">📱 Tutorial<span>Móvil</span></a>
+    <div class="acciones">
+      <button class="btn-icono" id="btn-tema" title="Cambiar tema">🌙</button>
+      <button class="btn-icono" id="btn-menu" title="Menú">☰</button>
+    </div>
+  </header>
+
+  <div class="contenedor">
+    <nav class="lateral">
+      <h3>Temas</h3>
+      <ul>
+<li><a href="../index.html" class="">🏠 Inicio</a></li>
+<li><a href="../temas/control-versiones.html" class="">🌿 Control de versiones</a></li>
+<li><a href="../temas/persistencia-datos.html" class="">💾 Persistencia y acceso a datos</a></li>
+<li><a href="../temas/sensores.html" class="">📡 Gestión de sensores</a></li>
+<li><a href="../temas/multimedia.html" class="activo">🎬 Recursos multimedia</a></li>
+<li><a href="../temas/servicios-notificaciones.html" class="">🔔 Servicios y notificaciones</a></li>
+<li><a href="../temas/librerias-toolkits.html" class="">🧰 Librerías y toolkits</a></li>
+<li><a href="../temas/depuracion-seguridad.html" class="">🛡️ Depuración y seguridad</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <div class="portada-tema">
+        <h1>🎬 Recursos multimedia</h1>
+        <p>Imágenes, audio, video y animaciones dentro de una aplicación móvil.</p>
+      </div>
+      <div class="indice"><h2>Contenido</h2><ol><li><a href="#definicion">Definición</a></li><li><a href="#tipos">Tipos de recursos multimedia en la programación móvil</a></li><li><a href="#estructura">Elementos de la estructura del proyecto donde se guardan</a></li><li><a href="#componentes">Componentes de software para usar recursos multimedia</a></li></ol></div>
+      <section class="bloque" id="definicion"><h2>Definición</h2>
+<p>Los <strong>recursos multimedia</strong> son todos los elementos que combinan distintos medios para comunicar información o mejorar la experiencia del usuario: imágenes, sonidos, videos, animaciones y gráficos. En una aplicación móvil se usan para hacerla más atractiva, más fácil de entender y más interactiva.</p>
+</section><section class="bloque" id="tipos"><h2>Tipos de recursos multimedia en la programación móvil</h2>
+<h3>🖼️ Imágenes</h3>
+<p>Pueden ser de mapa de bits (<strong>PNG</strong>, <strong>JPG</strong>, <strong>WebP</strong>) o vectoriales (<strong>SVG</strong>, <em>Vector Drawable</em> en Android, PDF vectorial en iOS). Las vectoriales se ven bien en cualquier tamaño de pantalla. Se usan para íconos, fondos, fotos y logotipos.</p>
+
+<h3>🔊 Audio</h3>
+<p>Formatos como <strong>MP3</strong>, <strong>AAC</strong>, <strong>OGG</strong> y <strong>WAV</strong>. Se usan para música, efectos de sonido, notificaciones, mensajes de voz y podcasts.</p>
+
+<h3>🎥 Video</h3>
+<p>Formatos como <strong>MP4</strong> (H.264/H.265) y <strong>WebM</strong>. Puede ser un video guardado en la app o transmitido por internet (<em>streaming</em>). Ejemplo: tutoriales, anuncios, videollamadas.</p>
+
+<h3>✨ Animaciones</h3>
+<p>Movimientos o transiciones de los elementos: animaciones de propiedades (mover, rotar, escalar, cambiar transparencia), GIF animados, animaciones vectoriales y archivos <strong>Lottie</strong> (animaciones en formato JSON exportadas desde After Effects).</p>
+
+<h3>📊 Elementos visuales dinámicos</h3>
+<p>Contenido que cambia en tiempo real según los datos o las acciones del usuario: gráficas, barras de progreso, mapas interactivos, transiciones entre pantallas, dibujos en <code>Canvas</code> y efectos al tocar la pantalla.</p>
+</section><section class="bloque" id="estructura"><h2>Elementos de la estructura del proyecto donde se guardan</h2>
+<p>Cada plataforma tiene carpetas específicas para los recursos. En <strong>Android</strong>:</p>
+<div class="tabla-scroll"><table><thead><tr><th>Carpeta</th><th>¿Qué se guarda?</th></tr></thead><tbody><tr><td><code>res/drawable/</code></td><td>Imágenes (PNG, JPG, WebP) y gráficos vectoriales XML.</td></tr><tr><td><code>res/mipmap/</code></td><td>Ícono de la aplicación en diferentes resoluciones (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi).</td></tr><tr><td><code>res/raw/</code></td><td>Archivos de audio y video que se leen tal cual (<code>R.raw.cancion</code>).</td></tr><tr><td><code>res/anim/</code> y <code>res/animator/</code></td><td>Definiciones XML de animaciones.</td></tr><tr><td><code>res/font/</code></td><td>Fuentes tipográficas personalizadas.</td></tr><tr><td><code>assets/</code></td><td>Archivos con su estructura original de carpetas (HTML, JSON de Lottie, bases de datos precargadas).</td></tr></tbody></table></div>
+<p>En <strong>iOS</strong> los recursos se guardan en el catálogo <code>Assets.xcassets</code> (imágenes, íconos, colores). En <strong>Flutter</strong> se ponen en una carpeta <code>assets/</code> y se registran en el archivo <code>pubspec.yaml</code>.</p>
+</section><section class="bloque" id="componentes"><h2>Componentes de software para usar recursos multimedia</h2>
+<ul>
+  <li><strong>ImageView</strong> / <strong>Image</strong> (Compose): muestran imágenes en la interfaz.</li>
+  <li><strong>Glide</strong>, <strong>Coil</strong> y <strong>Picasso</strong>: librerías para cargar imágenes de internet con caché.</li>
+  <li><strong>MediaPlayer</strong>: reproduce audio y video sencillos.</li>
+  <li><strong>SoundPool</strong>: reproduce sonidos cortos con poca latencia (efectos en juegos).</li>
+  <li><strong>ExoPlayer / Media3</strong>: reproductor avanzado de Google para streaming de video y audio.</li>
+  <li><strong>VideoView</strong>: componente simple para mostrar videos.</li>
+  <li><strong>CameraX</strong>: para tomar fotos y grabar video con la cámara.</li>
+  <li><strong>MediaRecorder</strong>: para grabar audio desde el micrófono.</li>
+  <li><strong>ObjectAnimator</strong>, <strong>MotionLayout</strong> y la API de animaciones de Compose: para crear animaciones.</li>
+  <li><strong>Lottie</strong>: reproduce animaciones vectoriales en JSON.</li>
+  <li>En iOS: <strong>AVFoundation</strong> / <strong>AVPlayer</strong> (audio y video) y <strong>Core Animation</strong>.</li>
+</ul>
+<details><summary>Ejemplo 1: reproducir un sonido con MediaPlayer</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>// El archivo está en res/raw/boton.mp3
+val reproductor = MediaPlayer.create(this, R.raw.boton)
+reproductor.start()
+
+reproductor.setOnCompletionListener {
+    it.release()   // liberar memoria al terminar
+}</code></pre></div></div></details><details><summary>Ejemplo 2: cargar una imagen de internet con Glide</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>Glide.with(this)
+    .load(&quot;https://ejemplo.com/foto.jpg&quot;)
+    .placeholder(R.drawable.cargando)
+    .into(imageView)</code></pre></div></div></details><details><summary>Ejemplo 3: animar un botón</summary><div><div class="codigo"><span class="lenguaje">kotlin</span><pre><code>ObjectAnimator.ofFloat(boton, &quot;rotation&quot;, 0f, 360f).apply {
+    duration = 800
+    start()
+}</code></pre></div></div></details></section>
+      <div class="nav-temas"><a href="sensores.html">← Gestión de sensores</a><a href="servicios-notificaciones.html">Servicios y notificaciones →</a></div>
+
+    </main>
+  </div>
+
+  <footer>
+    Tutorial de Programación Móvil &middot; Jesús Yáñez Bautista &middot; Grupo 142 &middot; 2026
+  </footer>
+
+  <button id="btn-arriba" title="Volver arriba">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>
